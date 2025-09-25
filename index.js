@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Product = require('./models/product.model.js');
-const productRoute = require('./routes/product.route.js');
+const Tarea = require('./models/tarea.model.js');
+const tareaRoute = require('./routes/tarea.route.js');
 const app = express()
 
 // Middleware
@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: false }));
 
 
 // Routes
-app.use("/api/products", productRoute);
+app.use("/api/tareas", tareaRoute);
 
 app.get("/", (req, res) => {
     res.send("Hola desde Node API Server");
