@@ -1,6 +1,26 @@
 const Tarea = require("../models/tarea.model");
+const { registrarActividad } = require("./actividad.controller");
 
-// Listar todos las tareas
+// Crea una tarea
+const createTarea = async (req, res) => {
+  try {
+    const tarea = await Tarea.create(req.body);
+
+    await registrarActividad({
+      usuarioId: req.body.asignadoA,
+      accion: "Creó tarea",
+      entidad: "Tarea",
+      entidadId: tarea._id
+    });
+
+    res.status(201).json(tarea);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+// Lista todas las tareas
 const getTareas = async (req, res) => {
     try {
         const tareas = await Tarea.find({});
@@ -11,7 +31,7 @@ const getTareas = async (req, res) => {
 
 };
 
-// Buscar una Tarea por ID
+// Busca una Tarea por ID
 const getTarea = async (req, res) => {
     try {
         const { id } = req.params;
@@ -28,17 +48,7 @@ const getTarea = async (req, res) => {
 
 };
 
-// Crear una tarea
-const createTarea = async (req, res) => {
-    try {
-        const tarea = await Tarea.create(req.body);
-        res.status(201).json(tarea);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-
-// Actualizar una tarea
+// Actualiza una tarea
 const updateTarea = async (req, res) => {
   try {
     const { id } = req.params;
@@ -60,7 +70,7 @@ const updateTarea = async (req, res) => {
   }
 };
 
-// Eliminar tarea
+// Elimina una tarea
 const deleteTarea = async (req, res) => {
     try {
         const { id } = req.params;

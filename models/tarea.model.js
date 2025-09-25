@@ -9,16 +9,25 @@ const TareaSchema = mongoose.Schema({
 
   etiquetas: [{ type: String }],
 
-  comentarios: [{ autor: String, texto: String, fecha: Date }],
+  comentarios: [{
+    autor: { type: mongoose.Schema.Types.ObjectId, ref: "Usuario" },
+    texto: String,
+    fecha: { type: Date, default: Date.now }
+  }],
 
-  historial: [{ estado: String, fecha: Date }],
 
-  asignadoA: { type: String }, 
+  historial: [{
+    estado: { type: String, enum: ["Pendiente", "En progreso", "Finalizado", "Cancelado"] },
+    fecha: { type: Date, default: Date.now }
+  }],
 
-}, 
-{ 
-    timestamps: true 
-}
+
+  asignadoA: { type: mongoose.Schema.Types.ObjectId, ref: "Usuario" },
+
+},
+  {
+    timestamps: true
+  }
 );
 
 const Tarea = mongoose.model("Tarea", TareaSchema);

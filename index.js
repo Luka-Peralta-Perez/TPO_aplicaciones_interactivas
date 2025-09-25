@@ -1,10 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Tarea = require('./models/tarea.model.js');
 const tareaRoute = require('./routes/tarea.route.js');
 const app = express()
+const usuarioRoute = require("./routes/usuario.route");
+const equipoRoute = require("./routes/equipo.route");
+const membresiaRoute = require("./routes/membresia.route");
+
 
 // Middleware
+app.use("/api/usuarios", usuarioRoute);
+app.use("/api/equipos", equipoRoute);
+app.use("/api/membresias", membresiaRoute);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
