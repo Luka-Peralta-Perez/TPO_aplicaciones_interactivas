@@ -11,7 +11,7 @@ const TareaSchema = mongoose.Schema({
 
   comentarios: [{
     autor: { type: mongoose.Schema.Types.ObjectId, ref: "Usuario" },
-    texto: String,
+    contenido: String,
     fecha: { type: Date, default: Date.now }
   }],
 

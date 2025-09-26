@@ -1,20 +1,28 @@
 {
   "name": "tpo---ivanec---peralta-perez",
   "version": "1.0.0",
-  "description": "",
+  "description": "API para gestión de tareas con Express y MongoDB",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "express",
+    "mongodb",
+    "mongoose",
+    "api",
+    "tareas"
+  ],
+  "author": "Mora Ivanec, Peralta, Pérez",
   "license": "ISC",
   "dependencies": {
     "express": "^5.1.0",
     "mongodb": "^6.20.0",
-    "mongoose": "^8.18.2"
+    "mongoose": "^8.18.2",
+    "swagger-ui-express": "^4.6.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

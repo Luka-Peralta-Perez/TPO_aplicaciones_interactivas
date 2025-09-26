@@ -1,0 +1,208 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Tareas y Actividades",
+    "version": "1.0.0",
+    "description": "Documentación de la API para gestionar tareas, comentarios, usuarios y actividades por usuario o equipo"
+  },
+  "paths": {
+    "/tareas": {
+      "get": {
+        "summary": "Listar tareas (con o sin filtros)",
+        "responses": {
+          "200": {
+            "description": "Listado de tareas"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva tarea",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tarea"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Tarea creada"
+          }
+        }
+      }
+    },
+    "/tareas/{id}": {
+      "get": {
+        "summary": "Obtener una tarea por ID",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string" }
+        }],
+        "responses": {
+          "200": { "description": "Tarea encontrada" },
+          "404": { "description": "Tarea no encontrada" }
+        }
+      },
+      "put": {
+        "summary": "Actualizar una tarea",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string" }
+        }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Tarea" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Tarea actualizada" },
+          "404": { "description": "Tarea no encontrada" }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una tarea",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string" }
+        }],
+        "responses": {
+          "200": { "description": "Tarea eliminada" },
+          "404": { "description": "Tarea no encontrada" }
+        }
+      }
+    },
+    "/tareas/{id}/comentarios": {
+      "post": {
+        "summary": "Agregar comentario a una tarea",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string" }
+        }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Comentario" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Comentario agregado" },
+          "404": { "description": "Tarea no encontrada" }
+        }
+      }
+    },
+    "/usuarios": {
+      "get": {
+        "summary": "Listar todos los usuarios",
+        "responses": {
+          "200": {
+            "description": "Listado de usuarios"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo usuario",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Usuario"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuario creado"
+          },
+          "400": {
+            "description": "Email ya registrado"
+          }
+        }
+      }
+    },
+    "/actividad/usuario/{usuarioId}": {
+      "get": {
+        "summary": "Obtener actividad por usuario",
+        "parameters": [{
+          "name": "usuarioId",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string" }
+        }],
+        "responses": {
+          "200": { "description": "Actividad del usuario" },
+          "404": { "description": "Usuario no encontrado" }
+        }
+      }
+    },
+    "/actividad/equipo/{equipoId}": {
+      "get": {
+        "summary": "Obtener actividad por equipo",
+        "parameters": [{
+          "name": "equipoId",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string" }
+        }],
+        "responses": {
+          "200": { "description": "Actividad del equipo" },
+          "404": { "description": "Equipo no encontrado" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Tarea": {
+        "type": "object",
+        "properties": {
+          "titulo": { "type": "string" },
+          "descripcion": { "type": "string" },
+          "estado": {
+            "type": "string",
+            "enum": ["pendiente", "en progreso", "completada"]
+          }
+        },
+        "required": ["titulo", "descripcion"]
+      },
+      "Comentario": {
+        "type": "object",
+        "properties": {
+          "autor": { "type": "string" },
+          "contenido": { "type": "string" },
+          "fecha": { "type": "string", "format": "date-time" }
+        },
+        "required": ["autor", "contenido"]
+      },
+      "Usuario": {
+        "type": "object",
+        "properties": {
+          "nombre": { "type": "string" },
+          "email": { "type": "string", "format": "email" },
+          "rol": {
+            "type": "string",
+            "enum": ["admin", "miembro"]
+          }
+        },
+        "required": ["nombre", "email"]
+      }
+    }
+  }
+}

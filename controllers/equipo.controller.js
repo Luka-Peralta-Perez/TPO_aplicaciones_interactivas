@@ -1,5 +1,4 @@
 const Equipo = require("../models/equipo.model");
-const Equipo = require("../models/equipo.model");
 const Usuario = require("../models/usuario.model");
 const Membresia = require("../models/membresia.model");
 
