@@ -1,6 +1,5 @@
 # TPO_aplicaciones_interactivas
 
-# TPO_aplicaciones_interactivas
 #  API de Gestión de Tareas en Equipos
 
 Una API REST construida con *Node.js, **Express* y *MongoDB* (Mongoose) para gestionar tareas colaborativas en equipos. Permite crear usuarios, equipos, asignar roles, registrar tareas, comentarios, historial de estados y actividad.
